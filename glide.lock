@@ -1,0 +1,12 @@
+hash: 1015b4afe85811661ffb20e0f36f875ccc2ee2c8ac5fe0ba960898609b6b9490
+updated: 2016-08-04T15:07:20.964442162+01:00
+imports:
+- name: golang.org/x/net
+  version: 57bfaa875b96fb91b4766077f34470528d4b03e9
+  subpackages:
+  - context
+- name: google.golang.org/grpc
+  version: 13edeeffdea7a41d5aad96c28deb4c7bd01a9397
+  subpackages:
+  - metadata
+testImports: []
