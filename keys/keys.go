@@ -1,5 +1,7 @@
 package keys
 
+import "strings"
+
 const (
 	keyprefix = "portc-"
 
@@ -34,4 +36,11 @@ func GetFirstNameKey() string {
 // GetLastNameKey retrieves the last name of the user making the request
 func GetLastNameKey() string {
 	return keyprefix + lastNameKey
+}
+
+// GetGenericKeyForString retrieves key for given generic value
+func GetGenericKeyForString(in string) string {
+	key := strings.Replace(in, " ", "-", -1)
+	key = strings.ToLower(key)
+	return keyprefix + in
 }
