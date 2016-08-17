@@ -42,5 +42,5 @@ func GetLastNameKey() string {
 func GetGenericKeyForString(in string) string {
 	key := strings.Replace(in, " ", "-", -1)
 	key = strings.ToLower(key)
-	return keyprefix + in
+	return keyprefix + key
 }
