@@ -1,6 +1,6 @@
 package: github.com/fortifi/portcullis-go
 import:
 - package: google.golang.org/grpc
-  version: v1.0.0
+  version: v1.0.x
   subpackages:
   - metadata
