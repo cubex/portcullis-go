@@ -1,6 +1,7 @@
 package portcullis_test
 
 import (
+	"fmt"
 	"testing"
 
 	"golang.org/x/net/context"
@@ -14,6 +15,9 @@ const (
 	testOrg      = "this-is-a-test-org-id"
 	testUserID   = "this-is-a-test-user-id"
 	testUsername = "this-is-a-test-username"
+
+	testAppID  = "test-app-id"
+	testVendor = "test-vendor"
 )
 
 // TestAuthDataExtraction tests for valid transaction of portcullis meta data values
@@ -22,22 +26,26 @@ func TestAuthDataExtraction(t *testing.T) {
 	metamap[keys.GetOrganisationKey()] = testOrg
 	metamap[keys.GetUserIDKey()] = testUserID
 	metamap[keys.GetUsernameKey()] = testUsername
+	metamap[keys.GetAppIDKey()] = testAppID
+	metamap[keys.GetAppVendorKey()] = testVendor
+
 	meta := metadata.New(metamap)
 	ctx := metadata.NewContext(context.Background(), meta)
+	in := portcullis.FromContext(ctx)
 
-	org := portcullis.FromContext(ctx).OrganisationID
-	username := portcullis.FromContext(ctx).Username
-	userID := portcullis.FromContext(ctx).UserID
+	if in.GlobalAppID() != fmt.Sprintf("%s/%s", testVendor, testAppID) {
+		t.Error("Global app ID does not contain expected value")
+	}
 
-	if org != testOrg {
+	if in.OrganisationID != testOrg {
 		t.Error("Organisation does not contain expected value")
 	}
 
-	if username != testUsername {
+	if in.Username != testUsername {
 		t.Error("Username does not contain expected value")
 	}
 
-	if userID != testUserID {
+	if in.UserID != testUserID {
 		t.Error("userID does not contain expected value")
 	}
 }

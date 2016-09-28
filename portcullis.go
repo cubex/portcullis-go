@@ -1,6 +1,8 @@
 package portcullis
 
 import (
+	"fmt"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 
@@ -11,9 +13,16 @@ import (
 type ReqInfo struct {
 	OrganisationID string
 	UserID         string
+	AppID          string
+	VendorID       string
 	Username       string
 	FirstName      string
 	LastName       string
+}
+
+// GlobalAppID is getter for requesting app's Global ID
+func (r *ReqInfo) GlobalAppID() string {
+	return fmt.Sprintf("%s/%s", r.VendorID, r.AppID)
 }
 
 // FromContext retrieves request info from given request context
@@ -25,6 +34,8 @@ func FromContext(ctx context.Context) ReqInfo {
 		Username:       safeGetMetaValString(keys.GetUsernameKey(), md),
 		FirstName:      safeGetMetaValString(keys.GetFirstNameKey(), md),
 		LastName:       safeGetMetaValString(keys.GetLastNameKey(), md),
+		AppID:          safeGetMetaValString(keys.GetAppIDKey(), md),
+		VendorID:       safeGetMetaValString(keys.GetAppVendorKey(), md),
 	}
 	return res
 }

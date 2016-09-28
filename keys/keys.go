@@ -8,10 +8,22 @@ const (
 	organisationKey = "organisation"
 	usernameKey     = "username"
 	userIDKey       = "userid"
+	appIDkey        = "appid"
+	vendorKey       = "appvendor"
 
 	firstNameKey = "first-name"
 	lastNameKey  = "last-name"
 )
+
+// GetAppIDKey retrieves the key used for App ID
+func GetAppIDKey() string {
+	return keyprefix + appIDkey
+}
+
+// GetAppVendorKey retrieves the key used for app vendor
+func GetAppVendorKey() string {
+	return keyprefix + vendorKey
+}
 
 // GetOrganisationKey retrieves the key used for organisation
 func GetOrganisationKey() string {
