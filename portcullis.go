@@ -3,6 +3,7 @@ package portcullis
 import (
 	"crypto/hmac"
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"sort"
 	"strings"
@@ -50,8 +51,8 @@ func (r *ReqInfo) Verify(pk string) bool {
 	}
 
 	mac.Write([]byte(m))
-	expectedMAC := mac.Sum(nil)
-	return hmac.Equal([]byte(r.signature), expectedMAC)
+	expectedMAC := hex.EncodeToString(mac.Sum(nil))
+	return hmac.Equal([]byte(r.signature), []byte(expectedMAC))
 }
 
 // GlobalAppID is getter for requesting app's Global ID
