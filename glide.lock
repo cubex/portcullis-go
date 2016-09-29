@@ -1,6 +1,8 @@
-hash: 965490db678ff9f67f4c0f29f0f35c7a45bb269806788c9f87ef2e39ca969f31
-updated: 2016-09-08T14:44:57.55234851+01:00
+hash: 32b6d70980f768dcf2f7265101a3cea3cb15a1d911cba83c67ed5453eab0954d
+updated: 2016-09-29T10:45:56.012650083+01:00
 imports:
+- name: github.com/fortifi/potens-go
+  version: 4ac36f1f294edbfc16826f3ba0b3cc201504757d
 - name: golang.org/x/net
   version: 57bfaa875b96fb91b4766077f34470528d4b03e9
   subpackages:

@@ -1,7 +1,11 @@
 package portcullis
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
 	"fmt"
+	"sort"
+	"strings"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
@@ -18,6 +22,36 @@ type ReqInfo struct {
 	Username       string
 	FirstName      string
 	LastName       string
+	signature      string
+	meta           metadata.MD
+}
+
+// Verify checks that the request signature matches using app private key
+func (r *ReqInfo) Verify(pk string) bool {
+	mac := hmac.New(sha256.New, []byte(pk))
+	mk := make([]string, len(r.meta))
+	i := 0
+	for k := range r.meta {
+		mk[i] = k
+		i++
+	}
+	sort.Strings(mk)
+
+	m := ""
+	for _, v := range mk {
+		if strings.HasPrefix(v, keys.GetKeyPrefix()) {
+			m = m + v
+			b := r.meta[v]
+			sort.Strings(b)
+			for _, a := range b {
+				m = m + a
+			}
+		}
+	}
+
+	mac.Write([]byte(m))
+	expectedMAC := mac.Sum(nil)
+	return hmac.Equal([]byte(r.signature), expectedMAC)
 }
 
 // GlobalAppID is getter for requesting app's Global ID
@@ -36,6 +70,8 @@ func FromContext(ctx context.Context) ReqInfo {
 		LastName:       safeGetMetaValString(keys.GetLastNameKey(), md),
 		AppID:          safeGetMetaValString(keys.GetAppIDKey(), md),
 		VendorID:       safeGetMetaValString(keys.GetAppVendorKey(), md),
+		signature:      safeGetMetaValString(keys.GetSignatureKey(), md),
+		meta:           md,
 	}
 	return res
 }

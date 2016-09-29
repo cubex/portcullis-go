@@ -4,3 +4,5 @@ import:
   version: v1.0.x
   subpackages:
   - metadata
+- package: github.com/fortifi/potens-go
+  subpackage: identity

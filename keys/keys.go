@@ -10,10 +10,21 @@ const (
 	userIDKey       = "userid"
 	appIDkey        = "appid"
 	vendorKey       = "appvendor"
+	sigKey          = "signature"
 
 	firstNameKey = "first-name"
 	lastNameKey  = "last-name"
 )
+
+// GetKeyPrefix returns portcullis key prefix
+func GetKeyPrefix() string {
+	return keyprefix
+}
+
+// GetSignatureKey retrieves the key used for portcullis verification signature
+func GetSignatureKey() string {
+	return keyprefix + sigKey
+}
 
 // GetAppIDKey retrieves the key used for App ID
 func GetAppIDKey() string {
