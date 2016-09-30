@@ -27,9 +27,9 @@ type ReqInfo struct {
 	meta           metadata.MD
 }
 
-// Verify checks that the request signature matches using app private key
-func (r *ReqInfo) Verify(pk string) bool {
-	mac := hmac.New(sha256.New, []byte(pk))
+// Verify checks that the request signature matches using signature key
+func (r *ReqInfo) Verify(sigKey string) bool {
+	mac := hmac.New(sha256.New, []byte(sigKey))
 	mk := make([]string, len(r.meta))
 	i := 0
 	for k := range r.meta {
