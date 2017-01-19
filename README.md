@@ -4,7 +4,7 @@ Portcullis Go Library
 #### Usage
 FromContext() accepts the context from your GRPC request
 ```go
-import "github.com/fortifi/portcullis-go"
+import "github.com/cubex/portcullis-go"
 
 org := portcullis.FromContext(ctx).OrganisationID
 ```

@@ -11,7 +11,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/fortifi/portcullis-go/keys"
+	"github.com/cubex/portcullis-go/keys"
 )
 
 // ReqInfo is the structure for deserialised request information

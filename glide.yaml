@@ -1,8 +1,8 @@
-package: github.com/fortifi/portcullis-go
+package: github.com/cubex/portcullis-go
 import:
 - package: google.golang.org/grpc
   version: v1.0.x
   subpackages:
   - metadata
-- package: github.com/fortifi/potens-go
+- package: github.com/cubex/potens-go
   subpackage: identity
