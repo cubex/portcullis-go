@@ -6,7 +6,7 @@ FromContext() accepts the context from your GRPC request
 ```go
 import "github.com/cubex/portcullis-go"
 
-org := portcullis.FromContext(ctx).OrganisationID
+project := portcullis.FromContext(ctx).ProjectID
 ```
 
 Dependencies included in [Glide](https://glide.sh/).lock

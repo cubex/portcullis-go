@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	testOrg      = "this-is-a-test-org-id"
+	testProject  = "this-is-a-test-project-id"
 	testUserID   = "this-is-a-test-user-id"
 	testUsername = "this-is-a-test-username"
 
@@ -23,7 +23,7 @@ const (
 // TestAuthDataExtraction tests for valid transaction of portcullis meta data values
 func TestAuthDataExtraction(t *testing.T) {
 	metamap := map[string]string{}
-	metamap[keys.GetOrganisationKey()] = testOrg
+	metamap[keys.GetProjectKey()] = testProject
 	metamap[keys.GetUserIDKey()] = testUserID
 	metamap[keys.GetUsernameKey()] = testUsername
 	metamap[keys.GetAppIDKey()] = testAppID
@@ -37,8 +37,8 @@ func TestAuthDataExtraction(t *testing.T) {
 		t.Error("Global app ID does not contain expected value")
 	}
 
-	if in.OrganisationID != testOrg {
-		t.Error("Organisation does not contain expected value")
+	if in.ProjectID != testProject {
+		t.Error("Project does not contain expected value")
 	}
 
 	if in.Username != testUsername {
@@ -57,7 +57,7 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 	meta := metadata.New(metamap)
 	ctx := metadata.NewContext(context.Background(), meta)
 
-	org := portcullis.FromContext(ctx).OrganisationID
+	project := portcullis.FromContext(ctx).ProjectID
 	username := portcullis.FromContext(ctx).Username
 	userID := portcullis.FromContext(ctx).UserID
 
@@ -65,8 +65,8 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 		t.Error("Username does not contain expected value")
 	}
 
-	if org != "" {
-		t.Error("Organisation does not contain expected value")
+	if project != "" {
+		t.Error("Project does not contain expected value")
 	}
 
 	if userID != "" {
@@ -77,9 +77,9 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 // TestExtractionWithInvalidContext tests extraction result with context contains no metadata
 func TestExtractionWithInvalidContext(t *testing.T) {
 	ctx := context.TODO()
-	org := portcullis.FromContext(ctx).OrganisationID
+	project := portcullis.FromContext(ctx).ProjectID
 
-	if org != "" {
-		t.Error("Organisation does not contain expected value")
+	if project != "" {
+		t.Error("Project does not contain expected value")
 	}
 }

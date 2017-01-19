@@ -5,12 +5,12 @@ import "strings"
 const (
 	keyprefix = "portc-"
 
-	organisationKey = "organisation"
-	usernameKey     = "username"
-	userIDKey       = "userid"
-	appIDkey        = "appid"
-	vendorKey       = "appvendor"
-	sigKey          = "signature"
+	projectKey  = "project"
+	usernameKey = "username"
+	userIDKey   = "userid"
+	appIDkey    = "appid"
+	vendorKey   = "appvendor"
+	sigKey      = "signature"
 
 	firstNameKey = "first-name"
 	lastNameKey  = "last-name"
@@ -36,9 +36,9 @@ func GetAppVendorKey() string {
 	return keyprefix + vendorKey
 }
 
-// GetOrganisationKey retrieves the key used for organisation
-func GetOrganisationKey() string {
-	return keyprefix + organisationKey
+// GetProjectKey retrieves the key used for project
+func GetProjectKey() string {
+	return keyprefix + projectKey
 }
 
 // GetUsernameKey retrieves the key used for username

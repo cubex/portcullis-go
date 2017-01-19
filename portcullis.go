@@ -16,15 +16,15 @@ import (
 
 // ReqInfo is the structure for deserialised request information
 type ReqInfo struct {
-	OrganisationID string
-	UserID         string
-	AppID          string
-	VendorID       string
-	Username       string
-	FirstName      string
-	LastName       string
-	signature      string
-	meta           metadata.MD
+	ProjectID string
+	UserID    string
+	AppID     string
+	VendorID  string
+	Username  string
+	FirstName string
+	LastName  string
+	signature string
+	meta      metadata.MD
 }
 
 // Verify checks that the request signature matches using signature key
@@ -64,15 +64,15 @@ func (r *ReqInfo) GlobalAppID() string {
 func FromContext(ctx context.Context) ReqInfo {
 	md, _ := metadata.FromContext(ctx)
 	res := ReqInfo{
-		OrganisationID: safeGetMetaValString(keys.GetOrganisationKey(), md),
-		UserID:         safeGetMetaValString(keys.GetUserIDKey(), md),
-		Username:       safeGetMetaValString(keys.GetUsernameKey(), md),
-		FirstName:      safeGetMetaValString(keys.GetFirstNameKey(), md),
-		LastName:       safeGetMetaValString(keys.GetLastNameKey(), md),
-		AppID:          safeGetMetaValString(keys.GetAppIDKey(), md),
-		VendorID:       safeGetMetaValString(keys.GetAppVendorKey(), md),
-		signature:      safeGetMetaValString(keys.GetSignatureKey(), md),
-		meta:           md,
+		ProjectID: safeGetMetaValString(keys.GetProjectKey(), md),
+		UserID:    safeGetMetaValString(keys.GetUserIDKey(), md),
+		Username:  safeGetMetaValString(keys.GetUsernameKey(), md),
+		FirstName: safeGetMetaValString(keys.GetFirstNameKey(), md),
+		LastName:  safeGetMetaValString(keys.GetLastNameKey(), md),
+		AppID:     safeGetMetaValString(keys.GetAppIDKey(), md),
+		VendorID:  safeGetMetaValString(keys.GetAppVendorKey(), md),
+		signature: safeGetMetaValString(keys.GetSignatureKey(), md),
+		meta:      md,
 	}
 	return res
 }
