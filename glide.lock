@@ -1,14 +1,12 @@
-hash: 89c1752e7abbc677e2458fe649b1cd98e2217b76381be281d2d8abecf6f6b177
-updated: 2017-01-19T15:28:51.10534555Z
+hash: 2321ec3ccb939babc9f32546f919f10be4de122caf1feac538533d91ab7ed752
+updated: 2017-04-18T22:45:15.669575+01:00
 imports:
-- name: github.com/cubex/potens-go
-  version: cd6b24b7b52c79c52692a641428c2709fe54fdae
 - name: golang.org/x/net
-  version: f2499483f923065a842d38eb4c7f1927e6fc6e6d
+  version: 5602c733f70afc6dcec6766be0d5034d4c4f14de
   subpackages:
   - context
 - name: google.golang.org/grpc
-  version: 708a7f9f3283aa2d4f6132d287d78683babe55c8
+  version: 8050b9cbc271307e5a716a9d782803d09b0d6f2d
   subpackages:
   - metadata
 testImports: []

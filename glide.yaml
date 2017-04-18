@@ -1,8 +1,9 @@
 package: github.com/cubex/portcullis-go
 import:
+- package: golang.org/x/net
+  subpackages:
+  - context
 - package: google.golang.org/grpc
-  version: v1.0.x
+  version: ~1.2.1
   subpackages:
   - metadata
-- package: github.com/cubex/potens-go
-  subpackage: identity
