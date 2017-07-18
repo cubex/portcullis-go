@@ -7,8 +7,8 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/cubex/portcullis-go"
-	"github.com/cubex/portcullis-go/keys"
+	"github.com/kubex/portcullis-go"
+	"github.com/kubex/portcullis-go/keys"
 )
 
 const (
@@ -30,11 +30,19 @@ func TestAuthDataExtraction(t *testing.T) {
 	metamap[keys.GetAppVendorKey()] = testVendor
 
 	meta := metadata.New(metamap)
+
+	meta[keys.GetRolesKey()] = append(meta[keys.GetRolesKey()], "role2")
+	meta[keys.GetRolesKey()] = append(meta[keys.GetRolesKey()], "role1")
+
 	ctx := metadata.NewContext(context.Background(), meta)
 	in := portcullis.FromContext(ctx)
 
 	if in.GlobalAppID() != fmt.Sprintf("%s/%s", testVendor, testAppID) {
 		t.Error("Global app ID does not contain expected value")
+	}
+
+	if !in.HasRole("role1") || !in.HasRole("role2") {
+		t.Error("Roles do not contain expected values")
 	}
 
 	if in.ProjectID != testProject {
@@ -60,6 +68,7 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 	project := portcullis.FromContext(ctx).ProjectID
 	username := portcullis.FromContext(ctx).Username
 	userID := portcullis.FromContext(ctx).UserID
+	roles := portcullis.FromContext(ctx).Roles
 
 	if username != testUsername {
 		t.Error("Username does not contain expected value")
@@ -71,6 +80,10 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 
 	if userID != "" {
 		t.Error("userID does not contain expected value")
+	}
+
+	if len(roles) != 0 {
+		t.Error("roles do not contain expected value")
 	}
 }
 

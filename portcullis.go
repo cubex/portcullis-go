@@ -11,7 +11,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/cubex/portcullis-go/keys"
+	"github.com/kubex/portcullis-go/keys"
 )
 
 // ReqInfo is the structure for deserialised request information
@@ -25,6 +25,7 @@ type ReqInfo struct {
 	LastName  string
 	signature string
 	meta      metadata.MD
+	Roles     []string
 }
 
 // Verify checks that the request signature matches using signature key
@@ -60,6 +61,16 @@ func (r *ReqInfo) GlobalAppID() string {
 	return fmt.Sprintf("%s/%s", r.VendorID, r.AppID)
 }
 
+// HasRole check if the user has a specific role
+func (r *ReqInfo) HasRole(checkRole string) bool {
+	for _, role := range r.Roles {
+		if role == checkRole {
+			return true
+		}
+	}
+	return false
+}
+
 // FromContext retrieves request info from given request context
 func FromContext(ctx context.Context) ReqInfo {
 	md, _ := metadata.FromContext(ctx)
@@ -72,6 +83,7 @@ func FromContext(ctx context.Context) ReqInfo {
 		AppID:     safeGetMetaValString(keys.GetAppIDKey(), md),
 		VendorID:  safeGetMetaValString(keys.GetAppVendorKey(), md),
 		signature: safeGetMetaValString(keys.GetSignatureKey(), md),
+		Roles:     safeGetMetaValStringSlice(keys.GetRolesKey(), md),
 		meta:      md,
 	}
 	return res
@@ -82,6 +94,18 @@ func safeGetMetaValString(key string, md metadata.MD) string {
 	if md != nil {
 		if len(md[key]) != 0 {
 			result = md[key][0]
+		}
+	}
+	return result
+}
+
+func safeGetMetaValStringSlice(key string, md metadata.MD) []string {
+	result := []string{}
+	if md != nil {
+		if sliceKeys, hasKey := md[key]; hasKey {
+			for _, sliceValue := range sliceKeys {
+				result = append(result, sliceValue)
+			}
 		}
 	}
 	return result
