@@ -34,7 +34,7 @@ func TestAuthDataExtraction(t *testing.T) {
 	meta[keys.GetRolesKey()] = append(meta[keys.GetRolesKey()], "role2")
 	meta[keys.GetRolesKey()] = append(meta[keys.GetRolesKey()], "role1")
 
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewIncomingContext(context.Background(), meta)
 	in := portcullis.FromContext(ctx)
 
 	if in.GlobalAppID() != fmt.Sprintf("%s/%s", testVendor, testAppID) {
@@ -63,7 +63,7 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 	metamap := map[string]string{}
 	metamap[keys.GetUsernameKey()] = testUsername
 	meta := metadata.New(metamap)
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewIncomingContext(context.Background(), meta)
 
 	project := portcullis.FromContext(ctx).ProjectID
 	username := portcullis.FromContext(ctx).Username
@@ -89,7 +89,7 @@ func TestAuthDataExtractionWithMissingFields(t *testing.T) {
 
 // TestExtractionWithInvalidContext tests extraction result with context contains no metadata
 func TestExtractionWithInvalidContext(t *testing.T) {
-	ctx := context.TODO()
+	ctx := context.Background()
 	project := portcullis.FromContext(ctx).ProjectID
 
 	if project != "" {
