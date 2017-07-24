@@ -1,9 +1,0 @@
-package: github.com/cubex/portcullis-go
-import:
-- package: golang.org/x/net
-  subpackages:
-  - context
-- package: google.golang.org/grpc
-  version: ~1.4
-  subpackages:
-  - metadata
