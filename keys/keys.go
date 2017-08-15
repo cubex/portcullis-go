@@ -15,7 +15,8 @@ const (
 	firstNameKey = "first-name"
 	lastNameKey  = "last-name"
 
-	rolesKey = "roles"
+	rolesKey       = "roles"
+	permissionsKey = "permissions"
 )
 
 // GetKeyPrefix returns portcullis key prefix
@@ -66,6 +67,11 @@ func GetLastNameKey() string {
 // GetRolesKey key for retrieving roles from the request
 func GetRolesKey() string {
 	return keyprefix + rolesKey
+}
+
+// GetPermissionsKey key for retrieving permissions from the request
+func GetPermissionsKey() string {
+	return keyprefix + permissionsKey
 }
 
 // GetGenericKeyForString retrieves key for given generic value
