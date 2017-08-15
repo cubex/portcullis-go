@@ -65,7 +65,7 @@ func (r *ReqInfo) GlobalAppID() string {
 // HasRole check if the user has a specific role
 func (r *ReqInfo) HasRole(checkRole string) bool {
 	for _, role := range r.Roles {
-		if role == checkRole {
+		if role == r.ProjectID+"/"+checkRole {
 			return true
 		}
 	}
@@ -75,7 +75,7 @@ func (r *ReqInfo) HasRole(checkRole string) bool {
 // HasPermission check if the user has a specific permission
 func (r *ReqInfo) HasPermission(checkPermission string) bool {
 	for _, permission := range r.Permissions {
-		if permission == checkPermission {
+		if permission == r.ProjectID+"/"+checkPermission {
 			return true
 		}
 	}
